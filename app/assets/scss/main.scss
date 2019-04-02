@@ -1,0 +1,153 @@
+@import "./mixins";
+@import "./_variables";
+
+body {
+  position: relative;
+  background-color: $main-bg;
+}
+header {
+  padding-top: 1rem;
+  text-align: center;
+  font-family: $main-header-font;
+}
+
+body:after {
+  content: "";
+  clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+  background-color: $clip-path-bg;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+button#restart {
+  background-color: $player-2-light;
+  border: none;
+  @include transition;
+
+  &:hover {
+    background-color: $player-2-dark;
+  }
+}
+
+h1 {
+  font-family: "Luckiest Guy", cursive;
+  color: $player-2-light;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 3rem;
+  height: 100vh;
+}
+
+button {
+  outline: none;
+}
+input#highscore {
+  width: 3rem;
+  padding: 0.2rem;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  color: $cell-bg;
+}
+
+.container-smaller {
+  width: 20rem;
+  margin: 0 auto;
+}
+.row {
+  margin-top: 1rem;
+}
+table {
+  width: 20rem;
+  height: 20rem;
+  display: grid;
+  border-spacing: 0;
+
+  tbody {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+  tr {
+    grid-column: 1 / span 3;
+    display: flex;
+  }
+  td {
+    flex: 1;
+  }
+}
+.half-width {
+  width: 50%;
+}
+.full-width {
+  width: 100%;
+}
+.flex-center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.grid-btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background-color: $cell-bg;
+  position: relative;
+  @include transition;
+
+  &:hover {
+    @include scale;
+  }
+}
+.player-1,
+#player-1-score {
+  color: $player-1-light;
+}
+.player-2,
+#player-2-score {
+  color: $player-2-light;
+}
+.saber {
+  width: 80%;
+  height: auto;
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  @include transition;
+}
+.player-1-saber {
+  @extend .saber;
+}
+.player-2-saber {
+  @extend .saber;
+}
+.player-1--hover {
+  &:hover {
+    background-color: $player-1-light;
+  }
+}
+.player-2--hover {
+  &:hover {
+    background-color: $player-2-light;
+  }
+}
+.player-1--clicked {
+  background-color: $player-1-dark;
+}
+.player-2--clicked {
+  background-color: $player-2-dark;
+}
+.show {
+  opacity: 1;
+}
+.feedback-row {
+  height: 4rem;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: $cell-bg;
+}
