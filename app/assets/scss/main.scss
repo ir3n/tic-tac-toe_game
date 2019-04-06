@@ -52,7 +52,7 @@ input#highscore {
   text-align: center;
   background-color: transparent;
   border: none;
-  color: $cell-bg;
+  color: $player-2-light;
 }
 
 .container-smaller {
@@ -67,6 +67,7 @@ table {
   height: 20rem;
   display: grid;
   border-spacing: 0;
+  z-index: 3;
 
   tbody {
     display: grid;
@@ -150,4 +151,28 @@ table {
   font-size: 1.3rem;
   font-style: italic;
   color: $cell-bg;
+}
+.hero {
+  position: absolute;
+  width: 300px;
+  height: auto;
+  top: 2.8rem;
+  opacity: 0;
+  transition: all 1.5s;
+
+  &--show {
+    opacity: 0.7;
+    z-index: 4;
+  }
+}
+
+.player-1-hero {
+  @extend .hero;
+  left: 40%;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+.player-2-hero {
+  @extend .hero;
+  right: 10rem;
 }

@@ -172,11 +172,10 @@ function finalWinner() {
   $(".grid-btn").each(function() {
     handleClickedBtnLayout($(this));
   });
-  //3. remove event listener from buttons
+  //3. show the winner's hero
+  $(`.player-${curPlayer}-hero`).addClass("hero--show");
 
-  //4. change the clip-path's color to the color of the player
+  //4. write who wins
 
-  //5. write who wins
-
-  //6.start over
+  //5.start over
 }
