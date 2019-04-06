@@ -1,11 +1,13 @@
 import $ from "jquery";
 
 let highScoreInput = $("input#highscore");
+let highScore = 3;
+highScoreInput.val(highScore);
 
-let players = [];
-let highScore = highScoreInput.val(5);
 let play = true;
 
+console.log(highScore);
+let players = [];
 createPlayersArray(2);
 
 function createPlayersArray(numOfPlayers) {
@@ -118,8 +120,15 @@ function checkDiag2IfWon() {
 }
 
 function updateScore(player) {
-  players[curPlayer - 1].score++;
+  players[player - 1].score++;
   $(`#player-${player}-score`).html(`${players[player - 1].score}`);
+  if (players[player - 1].score === highScore) {
+    console.log(`WINNER PLAYER ${player}`);
+    players[0].score = 0;
+    players[1].score = 0;
+  } else {
+    return;
+  }
 }
 
 function handleClickedBtnLayout(btn) {
