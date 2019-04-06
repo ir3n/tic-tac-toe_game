@@ -1,7 +1,7 @@
 import $ from "jquery";
 
 let highScoreInput = $("input#highscore");
-let highScore = 3;
+let highScore = 1;
 highScoreInput.val(highScore);
 
 let play = true;
@@ -14,8 +14,7 @@ function createPlayersArray(numOfPlayers) {
   for (let i = 0; i < numOfPlayers; i++) {
     players.push({
       player: i + 1,
-      score: 0,
-      winner: false
+      score: 0
     });
   }
   return players;
@@ -124,8 +123,7 @@ function updateScore(player) {
   $(`#player-${player}-score`).html(`${players[player - 1].score}`);
   if (players[player - 1].score === highScore) {
     console.log(`WINNER PLAYER ${player}`);
-    players[0].score = 0;
-    players[1].score = 0;
+    finalWinner();
   } else {
     return;
   }
@@ -165,4 +163,20 @@ function startOver() {
 function togglePlayer() {
   curPlayer =
     curPlayer === players[0].player ? players[1].player : players[0].player;
+}
+function finalWinner() {
+  //1. scores are 0
+  players[0].score = 0;
+  players[1].score = 0;
+  //2. all grid buttons have the winner's --clicked class
+  $(".grid-btn").each(function() {
+    handleClickedBtnLayout($(this));
+  });
+  //3. remove event listener from buttons
+
+  //4. change the clip-path's color to the color of the player
+
+  //5. write who wins
+
+  //6.start over
 }
