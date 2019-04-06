@@ -1,11 +1,9 @@
 import $ from "jquery";
-import { equal } from "assert";
 
 let highScoreInput = $("input#highscore");
 
 let players = [];
 let highScore = highScoreInput.val(5);
-let curPlayer;
 let play = true;
 
 createPlayersArray(2);
@@ -21,12 +19,8 @@ function createPlayersArray(numOfPlayers) {
   return players;
 }
 
-curPlayer = players[0].player;
-
-//change highscore
-highScoreInput.on("change", function(e) {
-  highScore = e.target.valueAsNumber;
-});
+//we start with player 1
+let curPlayer = players[0].player;
 
 //hover effect of grid
 $(".grid-btn").each(function() {
@@ -36,6 +30,13 @@ $(".grid-btn").each(function() {
 });
 
 //EVENT LISTENERS
+
+//change highscore
+highScoreInput.on("change", function(e) {
+  highScore = e.target.valueAsNumber;
+});
+
+//player clicks on grid
 $("td").each(function() {
   $(this).click(e => handleBtnClick(e));
 });
@@ -46,23 +47,27 @@ function handleBtnClick(e) {
 
   //check if we have round winner
   if (
-    checkRowIfWon(curPlayer) ||
-    checkColIfWon(curPlayer) ||
-    checkDiag1IfWon(curPlayer) ||
-    checkDiag2IfWon(curPlayer)
+    checkRowIfWon() ||
+    checkColIfWon() ||
+    checkDiag1IfWon() ||
+    checkDiag2IfWon()
   ) {
+    startOver();
+    $(e.target).toggleClass(`player-${curPlayer}--hover`);
     updateScore(curPlayer);
+  } else {
+    togglePlayer();
   }
-  togglePlayer();
+
   console.log(players);
 }
 
 //1. check if current player has 3 cells in a row
-function checkRowIfWon(player) {
+function checkRowIfWon() {
   let curPlayerWon = false;
   $("tr").each(function() {
     //find cells with same class
-    let cells = [...$(this).find(`td[class="${player}"]`)];
+    let cells = [...$(this).find(`td[class="${curPlayer}"]`)];
     if (cells.length === 3) {
       curPlayerWon = true;
     }
@@ -70,12 +75,12 @@ function checkRowIfWon(player) {
   return curPlayerWon;
 }
 //2. check if current player has 3 cells with same index
-function checkColIfWon(player) {
+function checkColIfWon() {
   let curPlayerWon = false;
   for (let i = 0; i < 3; i++) {
     let cells = [
       //we make an array with te cells that have the class of the player and the same order in the row
-      ...$("tr").find(`td[class="${player}"]:nth-of-type(${i + 1})`)
+      ...$("tr").find(`td[class="${curPlayer}"]:nth-of-type(${i + 1})`)
     ];
     if (cells.length === 3) {
       curPlayerWon = true;
@@ -84,12 +89,12 @@ function checkColIfWon(player) {
   return curPlayerWon;
 }
 //3. check diagonal \
-function checkDiag1IfWon(player) {
+function checkDiag1IfWon() {
   let curPlayerWon = false;
   let cells = [];
   $("tr").each(function(i) {
     //we make an array with the tds that have the same index with the row and the class of the player
-    cells.push(...$(this).find(`td:eq('${i}')[class="${player}"]`));
+    cells.push(...$(this).find(`td:eq('${i}')[class="${curPlayer}"]`));
     if (cells.length === 3) {
       curPlayerWon = true;
     }
@@ -97,13 +102,13 @@ function checkDiag1IfWon(player) {
   return curPlayerWon;
 }
 //4. check diagonal /
-function checkDiag2IfWon(player) {
+function checkDiag2IfWon() {
   let curPlayerWon = false;
   let cells = [];
   //we start from the last row and look for the tds whose index follows the type 3-rowIndex-1
   for (let i = 2; i >= 0; i--) {
     cells.push(
-      ...$(`tr:eq('${i}')`).find(`td:eq('${3 - i - 1}')[class="${player}"]`)
+      ...$(`tr:eq('${i}')`).find(`td:eq('${3 - i - 1}')[class="${curPlayer}"]`)
     );
     if (cells.length === 3) {
       curPlayerWon = true;
@@ -118,15 +123,34 @@ function updateScore(player) {
 }
 
 function handleClickedBtnLayout(btn) {
-  $(btn).addClass(`player-${curPlayer}--clicked`);
   //add class to the cell in order to recognize it when we check for the winner
-  btn.parentElement.classList.add(`${curPlayer}`);
+  $(btn)
+    .parent("td")
+    .addClass(`${curPlayer}`);
+
+  $(btn).addClass(`player-${curPlayer}--clicked`);
   $(btn).prop("disabled", true);
   $(btn).prepend(`<img class="player-${curPlayer}-saber"
   src="./assets/images/${curPlayer}-lightsaber.png"
   alt="Player ${curPlayer} Lightsaber"
     />`);
   $(btn).removeClass(`player-${curPlayer}--hover`);
+}
+function startOver() {
+  for (let i = 0; i < players.length; i++) {
+    $(".grid-btn").each(function() {
+      $(this).removeClass(`player-${players[i].player}--clicked`);
+      if ($(this).hasClass(`player-${curPlayer}--hover`)) {
+        $(this).removeClass(`player-${curPlayer}--hover`);
+      }
+
+      $(this).prop("disabled", false);
+      $(this).html("");
+      $(this)
+        .parent("td")
+        .removeClass(`${players[i].player}`);
+    });
+  }
 }
 
 function togglePlayer() {
