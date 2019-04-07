@@ -14,7 +14,8 @@ function createPlayersArray(numOfPlayers) {
   for (let i = 0; i < numOfPlayers; i++) {
     players.push({
       player: i + 1,
-      score: 0
+      score: 0,
+      winner: false
     });
   }
   return players;
@@ -45,6 +46,7 @@ $("td").each(function() {
 function handleBtnClick(e) {
   //set clicked button's layout
   handleClickedBtnLayout(e.target);
+  handleFeedbackText();
 
   //check if we have round winner
   if (
@@ -123,6 +125,7 @@ function updateScore(player) {
   $(`#player-${player}-score`).html(`${players[player - 1].score}`);
   if (players[player - 1].score === highScore) {
     console.log(`WINNER PLAYER ${player}`);
+    players[player - 1].winner = true;
     finalWinner();
   } else {
     return;
@@ -176,6 +179,23 @@ function finalWinner() {
   $(`.player-${curPlayer}-hero`).addClass("hero--show");
 
   //4. write who wins
-
+  handleFeedbackText();
   //5.start over
+}
+
+function handleFeedbackText() {
+  let text;
+  $(".grid-btn").each(function() {
+    //remove the initial text when someone clicks
+    if (this.className.indexOf("clicked") > -1) {
+      text = "";
+    }
+  });
+  if (players[0].winner) {
+    text = "THE LIGHT SIDE WINS!";
+  }
+  if (players[1].winner) {
+    text = "THE DARK SIDE WINS!";
+  }
+  return $("#feedback-text").text(text);
 }

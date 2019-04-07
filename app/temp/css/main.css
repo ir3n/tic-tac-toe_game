@@ -158,6 +158,9 @@ table {
 .show {
   opacity: 1; }
 
+.hide {
+  opacity: 0; }
+
 .feedback-row {
   height: 4rem;
   font-size: 1.3rem;
