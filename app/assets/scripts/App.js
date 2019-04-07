@@ -1,40 +1,18 @@
 import $ from "jquery";
 
-let highScoreInput = $("input#highscore");
-let highScore = 1;
-highScoreInput.val(highScore);
+let highScore = 1,
+  players = [],
+  curPlayer;
 
-let play = true;
-
-console.log(highScore);
-let players = [];
+//how many players
 createPlayersArray(2);
 
-function createPlayersArray(numOfPlayers) {
-  for (let i = 0; i < numOfPlayers; i++) {
-    players.push({
-      player: i + 1,
-      score: 0,
-      winner: false
-    });
-  }
-  return players;
-}
-
-//we start with player 1
-let curPlayer = players[0].player;
-
-//hover effect of grid
-$(".grid-btn").each(function() {
-  $(this).hover(function() {
-    $(this).toggleClass(`player-${curPlayer}--hover`);
-  });
-});
+init();
 
 //EVENT LISTENERS
 
 //change highscore
-highScoreInput.on("change", function(e) {
+$("input#highscore").on("change", function(e) {
   highScore = e.target.valueAsNumber;
 });
 
@@ -42,6 +20,34 @@ highScoreInput.on("change", function(e) {
 $("td").each(function() {
   $(this).click(e => handleBtnClick(e));
 });
+
+//restart button
+$("#restart").click(function() {
+  curPlayer = players[0].player;
+  startOver();
+  eliminateScores();
+});
+
+function init() {
+  //set the highscore
+  $("input#highscore").val(highScore);
+
+  //eliminate the scores of both players
+  eliminateScores();
+
+  //we start with player 1
+  curPlayer = players[0].player;
+  //handle feedback
+  handleFeedbackText();
+  //hover effect of grid
+  gridHover();
+}
+function eliminateScores() {
+  for (let i = 0; i < players.length; i++) {
+    players[i].score = 0;
+    $(`#player-${players[i].player}-score`).html("0");
+  }
+}
 
 function handleBtnClick(e) {
   //set clicked button's layout
@@ -63,6 +69,17 @@ function handleBtnClick(e) {
   }
 
   console.log(players);
+}
+
+function createPlayersArray(numOfPlayers) {
+  for (let i = 0; i < numOfPlayers; i++) {
+    players.push({
+      player: i + 1,
+      score: 0,
+      winner: false
+    });
+  }
+  return players;
 }
 
 //1. check if current player has 3 cells in a row
@@ -124,7 +141,6 @@ function updateScore(player) {
   players[player - 1].score++;
   $(`#player-${player}-score`).html(`${players[player - 1].score}`);
   if (players[player - 1].score === highScore) {
-    console.log(`WINNER PLAYER ${player}`);
     players[player - 1].winner = true;
     finalWinner();
   } else {
@@ -147,13 +163,12 @@ function handleClickedBtnLayout(btn) {
   $(btn).removeClass(`player-${curPlayer}--hover`);
 }
 function startOver() {
+  console.log(players);
   for (let i = 0; i < players.length; i++) {
+    $(`.player-${curPlayer}-hero`).removeClass("hero--show");
     $(".grid-btn").each(function() {
       $(this).removeClass(`player-${players[i].player}--clicked`);
-      if ($(this).hasClass(`player-${curPlayer}--hover`)) {
-        $(this).removeClass(`player-${curPlayer}--hover`);
-      }
-
+      $(this).removeClass(`player-${curPlayer}--hover`);
       $(this).prop("disabled", false);
       $(this).html("");
       $(this)
@@ -168,34 +183,41 @@ function togglePlayer() {
     curPlayer === players[0].player ? players[1].player : players[0].player;
 }
 function finalWinner() {
-  //1. scores are 0
-  players[0].score = 0;
-  players[1].score = 0;
-  //2. all grid buttons have the winner's --clicked class
+  //1. all grid buttons have the winner's --clicked class
   $(".grid-btn").each(function() {
     handleClickedBtnLayout($(this));
   });
-  //3. show the winner's hero
+  //2. show the winner's hero
   $(`.player-${curPlayer}-hero`).addClass("hero--show");
-
-  //4. write who wins
+  //3. write who wins
   handleFeedbackText();
-  //5.start over
 }
 
 function handleFeedbackText() {
-  let text;
+  let html = `<i class="ion-md-arrow-dropright"></i>&nbsp;Click on a cell to begin...`;
   $(".grid-btn").each(function() {
     //remove the initial text when someone clicks
     if (this.className.indexOf("clicked") > -1) {
-      text = "";
+      html = "";
     }
   });
   if (players[0].winner) {
-    text = "THE LIGHT SIDE WINS!";
+    html = `<i class="ion-md-arrow-dropright"></i>&nbsp;THE LIGHT SIDE WINS!`;
   }
   if (players[1].winner) {
-    text = "THE DARK SIDE WINS!";
+    html = `<i class="ion-md-arrow-dropright"></i>&nbsp;THE DARK SIDE WINS!`;
   }
-  return $("#feedback-text").text(text);
+  return $("#feedback-text").html(html);
+}
+
+function gridHover() {
+  $(".grid-btn").each(function() {
+    $(this).hover(function() {
+      if ($(this).hasClass(`player-${curPlayer}--hover`)) {
+        $(this).removeClass(`player-${curPlayer}--hover`);
+      } else {
+        $(this).addClass(`player-${curPlayer}--hover`);
+      }
+    });
+  });
 }

@@ -21,6 +21,7 @@ body:after {
 button#restart {
   background-color: rgba(255, 0, 0, 0.8);
   border: none;
+  color: white;
   -webkit-transition: all 0.3s;
   -o-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -38,7 +39,8 @@ h1 {
   padding: 3rem;
   height: 100vh; }
 
-button {
+button:focus,
+input:focus {
   outline: none; }
 
 input#highscore {
@@ -51,7 +53,8 @@ input#highscore {
 
 .container-smaller {
   width: 20rem;
-  margin: 0 auto; }
+  margin: 0 auto;
+  z-index: 3; }
 
 .row {
   margin-top: 1rem; }
@@ -60,8 +63,7 @@ table {
   width: 20rem;
   height: 20rem;
   display: grid;
-  border-spacing: 0;
-  z-index: 3; }
+  border-spacing: 0; }
   table tbody {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
@@ -169,7 +171,7 @@ table {
 
 .hero, .player-1-hero, .player-2-hero {
   position: absolute;
-  width: 300px;
+  width: 18rem;
   height: auto;
   top: 2.8rem;
   opacity: 0;
@@ -178,8 +180,7 @@ table {
   -moz-transition: all 1.5s;
   transition: all 1.5s; }
   .hero--show {
-    opacity: 0.7;
-    z-index: 4; }
+    opacity: 0.4; }
 
 .player-1-hero {
   left: 40%;
@@ -191,4 +192,4 @@ table {
   border-bottom-right-radius: 50%; }
 
 .player-2-hero {
-  right: 10rem; }
+  right: 5%; }
