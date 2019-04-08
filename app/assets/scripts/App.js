@@ -1,6 +1,7 @@
 import $ from "jquery";
+import { deflateRaw } from "zlib";
 
-let highScore = 1,
+let highScore = 2,
   players = [],
   curPlayer;
 
@@ -19,14 +20,18 @@ $("td").each(function() {
 //change highscore
 $("input#highscore").on("change", function(e) {
   highScore = e.target.valueAsNumber;
+  curPlayer = players[0].player;
+  startOver();
 });
 
 //restart button
 $("#restart").click(function() {
   curPlayer = players[0].player;
+
   $(`.player-${curPlayer}-hero`).removeClass("hero--show");
   startOver();
   eliminateScores();
+  handleFeedbackText();
 });
 
 function init() {
@@ -47,33 +52,40 @@ function eliminateScores() {
   for (let i = 0; i < players.length; i++) {
     players[i].score = 0;
     $(`#player-${players[i].player}-score`).html("0");
+    players[i].winner = false;
   }
 }
 
 function handleBtnClick(e) {
+  //remove event listener
+  $(e.target)
+    .parent("td")
+    .off("click");
+
   //set clicked button's layout
   handleClickedBtnLayout(e.target);
 
   //check if we have round winner
-  if (
-    checkRowIfWon() ||
-    checkColIfWon() ||
-    checkDiag1IfWon() ||
-    checkDiag2IfWon()
-  ) {
+  if (checkRoundWinner()) {
     startOver();
     $(e.target).toggleClass(`player-${curPlayer}--hover`);
     updateScore(curPlayer);
   } else {
     togglePlayer();
   }
-  //remove event listener
-  $(e.target)
-    .parent("td")
-    .off("click");
-  handleFeedbackText();
+  //check for draw
+  if (checkForDraw()) {
+    curPlayer = players[0].player;
+    startOver();
+  }
 
   console.log(players);
+}
+function checkForDraw() {
+  return (
+    $(".grid-btn").length == $(".grid-btn:disabled").length &&
+    checkRoundWinner() == false
+  );
 }
 
 function createPlayersArray(numOfPlayers) {
@@ -87,6 +99,11 @@ function createPlayersArray(numOfPlayers) {
   return players;
 }
 
+function checkRoundWinner() {
+  return (
+    checkRowIfWon() || checkColIfWon() || checkDiag1IfWon() || checkDiag2IfWon()
+  );
+}
 //1. check if current player has 3 cells in a row
 function checkRowIfWon() {
   let curPlayerWon = false;
@@ -158,9 +175,8 @@ function handleClickedBtnLayout(btn) {
   $(btn)
     .parent("td")
     .addClass(`${curPlayer}`);
-
-  $(btn).addClass(`player-${curPlayer}--clicked`);
   $(btn).prop("disabled", true);
+  $(btn).addClass(`player-${curPlayer}--clicked`);
   $(btn).prepend(`<img class="player-${curPlayer}-saber"
   src="./assets/images/${curPlayer}-lightsaber.png"
   alt="Player ${curPlayer} Lightsaber"
@@ -168,9 +184,10 @@ function handleClickedBtnLayout(btn) {
   $(btn).removeClass(`player-${curPlayer}--hover`);
 }
 function startOver() {
+  handleFeedbackText();
   console.log(players);
   for (let i = 0; i < players.length; i++) {
-    $(`.player-${curPlayer}-hero`).removeClass("hero--show");
+    $(`.player-${players[i].player}-hero`).removeClass("hero--show");
     $(".grid-btn").each(function() {
       //re-attach event listener for click
       if ($(this).prop("disabled")) {
@@ -210,18 +227,30 @@ function finalWinner() {
 
 function handleFeedbackText() {
   let html = `<i class="ion-md-arrow-dropright"></i>&nbsp;Click on a cell to begin...`;
+
+  //remove the initial text when someone clicks
   $(".grid-btn").each(function() {
-    //remove the initial text when someone clicks
     if (this.className.indexOf("clicked") > -1) {
       html = "";
     }
   });
+  //if we have round winner
+  if (checkRoundWinner()) {
+    html =
+      curPlayer === 1
+        ? `<i class="ion-md-arrow-dropright"></i>&nbsp;One point for the Light Side!`
+        : `<i class="ion-md-arrow-dropright"></i>&nbsp;One point for the Dark Side!`;
+  } else if (checkForDraw()) {
+    html = `<i class="ion-md-arrow-dropright"></i>&nbsp;It's a Draw!`;
+  }
+  //if we have final winner
   if (players[0].winner) {
-    html = `<i class="ion-md-arrow-dropright"></i>&nbsp;THE LIGHT SIDE WINS!`;
+    html = `<i class="ion-md-arrow-dropright"></i>&nbsp;<b>THE LIGHT SIDE WINS!</b>`;
   }
   if (players[1].winner) {
-    html = `<i class="ion-md-arrow-dropright"></i>&nbsp;THE DARK SIDE WINS!`;
+    html = `<i class="ion-md-arrow-dropright"></i>&nbsp;<b>THE DARK SIDE WINS!</b>`;
   }
+
   return $("#feedback-text").html(html);
 }
 

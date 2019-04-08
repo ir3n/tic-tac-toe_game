@@ -36,6 +36,7 @@ button#restart {
 h1 {
   font-family: "Luckiest Guy", cursive;
   color: $player-2-light;
+  text-shadow: 4px -3px 1px rgba(138, 1, 0, 0.9);
 }
 .grid {
   display: grid;
@@ -110,10 +111,12 @@ table {
 .player-1,
 #player-1-score {
   color: $player-1-light;
+  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9);
 }
 .player-2,
 #player-2-score {
   color: $player-2-light;
+  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9);
 }
 .saber {
   width: 80%;
