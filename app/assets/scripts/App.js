@@ -11,19 +11,20 @@ init();
 
 //EVENT LISTENERS
 
+//set listener for when player clicks on grid
+$("td").each(function() {
+  $(this).on("click", e => handleBtnClick(e));
+});
+
 //change highscore
 $("input#highscore").on("change", function(e) {
   highScore = e.target.valueAsNumber;
 });
 
-//player clicks on grid
-$("td").each(function() {
-  $(this).click(e => handleBtnClick(e));
-});
-
 //restart button
 $("#restart").click(function() {
   curPlayer = players[0].player;
+  $(`.player-${curPlayer}-hero`).removeClass("hero--show");
   startOver();
   eliminateScores();
 });
@@ -52,7 +53,6 @@ function eliminateScores() {
 function handleBtnClick(e) {
   //set clicked button's layout
   handleClickedBtnLayout(e.target);
-  handleFeedbackText();
 
   //check if we have round winner
   if (
@@ -67,6 +67,11 @@ function handleBtnClick(e) {
   } else {
     togglePlayer();
   }
+  //remove event listener
+  $(e.target)
+    .parent("td")
+    .off("click");
+  handleFeedbackText();
 
   console.log(players);
 }
@@ -167,6 +172,12 @@ function startOver() {
   for (let i = 0; i < players.length; i++) {
     $(`.player-${curPlayer}-hero`).removeClass("hero--show");
     $(".grid-btn").each(function() {
+      //re-attach event listener for click
+      if ($(this).prop("disabled")) {
+        $(this)
+          .parent()
+          .on("click", e => handleBtnClick(e));
+      }
       $(this).removeClass(`player-${players[i].player}--clicked`);
       $(this).removeClass(`player-${curPlayer}--hover`);
       $(this).prop("disabled", false);
@@ -186,6 +197,10 @@ function finalWinner() {
   //1. all grid buttons have the winner's --clicked class
   $(".grid-btn").each(function() {
     handleClickedBtnLayout($(this));
+    // remove event listeners
+    $(this)
+      .parent("td")
+      .off("click");
   });
   //2. show the winner's hero
   $(`.player-${curPlayer}-hero`).addClass("hero--show");
