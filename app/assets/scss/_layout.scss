@@ -1,32 +1,69 @@
 body {
   position: relative;
+  overflow-x: hidden;
   background-color: $main-bg;
 }
 body:after {
   content: "";
-  clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
   background-color: $clip-path-bg;
   width: 100%;
-  height: 100%;
-  position: absolute;
+  height: 45%;
   top: 0;
+  position: absolute;
+
   z-index: -1;
+
+  @include md {
+    clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+    height: 100%;
+  }
 }
 header {
   padding-top: 1rem;
+  padding-bottom: 3rem;
   text-align: center;
   font-family: $main-header-font;
+
+  @include md {
+  }
 }
 h1 {
   font-family: "Luckiest Guy", cursive;
   color: $player-2-light;
   text-shadow: 4px -3px 1px rgba(138, 1, 0, 0.9);
 }
+.h1-bigger {
+  font-size: 3.1rem;
+
+  @include md {
+    font-size: 4.5rem;
+  }
+}
+h3 {
+  font-size: 1.5rem;
+  @include md {
+    font-size: 1.8rem;
+  }
+}
+h4 {
+  font-size: 1.3rem;
+  text-align: center;
+
+  @include md {
+    font-size: 1.5rem;
+  }
+}
 table {
-  width: 20rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   display: grid;
   border-spacing: 0;
+
+  @include md {
+    width: 20rem;
+    height: 20rem;
+  }
 
   tbody {
     display: grid;
@@ -42,25 +79,38 @@ table {
   }
 }
 .grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  padding: 3rem;
-  height: 100vh;
+  min-width: 300px;
+  padding: 1rem 1rem 3rem 1rem;
+
+  @include md {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    height: 100vh;
+    padding: 3rem;
+  }
 }
 .container-smaller {
-  width: 20rem;
+  width: 15rem;
   margin: 0 auto;
   z-index: 3;
+
+  @include md {
+    width: 20rem;
+  }
 }
 .row {
   margin-top: 1rem;
 }
 
 .feedback-row {
-  height: 4rem;
-  font-size: 1.3rem;
+  height: 2rem;
   font-style: italic;
   color: $cell-bg;
+
+  @include md {
+    height: 4rem;
+    font-size: 1.3rem;
+  }
 }
 
 .saber {

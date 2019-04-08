@@ -18,10 +18,25 @@ $main-header-font: "Racing Sans One", cursive;
   transform: scale(1.02);
 }
 
-body {
-  position: relative;
-  background-color: $main-bg;
+/*--Breakpoints--*/
+@mixin sm {
+  @media (min-width: 480px) {
+    @content;
+  }
 }
+
+@mixin md {
+  @media (min-width: 860px) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
 /*-------Utility Classes------*/
 
 .half-width {

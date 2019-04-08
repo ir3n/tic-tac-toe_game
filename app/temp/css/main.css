@@ -1,9 +1,6 @@
 /*------Variables--------*/
 /*-------Mixins--------*/
-body {
-  position: relative;
-  background-color: black; }
-
+/*--Breakpoints--*/
 /*-------Utility Classes------*/
 .half-width {
   width: 50%; }
@@ -54,6 +51,10 @@ button#restart {
   -o-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s; }
+  @media (min-width: 860px) {
+    button#restart {
+      font-size: 1.2rem;
+      padding: 0.5rem 1.2rem; } }
   button#restart:hover {
     background-color: #6b0000; }
 
@@ -88,26 +89,41 @@ input#highscore {
   position: absolute;
   width: 18rem;
   height: auto;
-  top: 2.8rem;
+  top: 47%;
   opacity: 0;
   -webkit-transition: all 1.5s;
   -o-transition: all 1.5s;
   -moz-transition: all 1.5s;
-  transition: all 1.5s; }
+  transition: all 1.5s;
+  z-index: -1;
+  margin: 0 auto; }
+  @media (min-width: 860px) {
+    .hero, .player-1-hero, .player-2-hero {
+      top: 2.8rem; } }
   .hero--show {
-    opacity: 0.4; }
+    opacity: 0.4;
+    z-index: 3; }
+    @media (min-width: 860px) {
+      .hero--show {
+        z-index: 1; } }
 
 .player-1-hero {
-  left: 40%;
+  left: 2rem;
   -webkit-border-bottom-left-radius: 50%;
   -moz-border-radius-bottomleft: 50%;
   border-bottom-left-radius: 50%;
   -webkit-border-bottom-right-radius: 50%;
   -moz-border-radius-bottomright: 50%;
   border-bottom-right-radius: 50%; }
+  @media (min-width: 860px) {
+    .player-1-hero {
+      left: 40%; } }
 
 .player-2-hero {
-  right: 5%; }
+  right: 2rem; }
+  @media (min-width: 860px) {
+    .player-2-hero {
+      right: 5%; } }
 
 button:focus,
 input:focus {
@@ -115,21 +131,28 @@ input:focus {
 
 body {
   position: relative;
+  overflow-x: hidden;
   background-color: black; }
 
 body:after {
   content: "";
-  -webkit-clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
-  clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
   background-color: #00c72b;
   width: 100%;
-  height: 100%;
-  position: absolute;
+  height: 45%;
   top: 0;
+  position: absolute;
   z-index: -1; }
+  @media (min-width: 860px) {
+    body:after {
+      -webkit-clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+      clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+      height: 100%; } }
 
 header {
   padding-top: 1rem;
+  padding-bottom: 3rem;
   text-align: center;
   font-family: "Racing Sans One", cursive; }
 
@@ -138,11 +161,34 @@ h1 {
   color: red;
   text-shadow: 4px -3px 1px rgba(138, 1, 0, 0.9); }
 
+.h1-bigger {
+  font-size: 3.1rem; }
+  @media (min-width: 860px) {
+    .h1-bigger {
+      font-size: 4.5rem; } }
+
+h3 {
+  font-size: 1.5rem; }
+  @media (min-width: 860px) {
+    h3 {
+      font-size: 1.8rem; } }
+
+h4 {
+  font-size: 1.3rem;
+  text-align: center; }
+  @media (min-width: 860px) {
+    h4 {
+      font-size: 1.5rem; } }
+
 table {
-  width: 20rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   display: grid;
   border-spacing: 0; }
+  @media (min-width: 860px) {
+    table {
+      width: 20rem;
+      height: 20rem; } }
   table tbody {
     display: grid;
     grid-template-rows: repeat(3, 1fr);
@@ -162,24 +208,34 @@ table {
     flex: 1; }
 
 .grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  padding: 3rem;
-  height: 100vh; }
+  min-width: 300px;
+  padding: 1rem 1rem 3rem 1rem; }
+  @media (min-width: 860px) {
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      height: 100vh;
+      padding: 3rem; } }
 
 .container-smaller {
-  width: 20rem;
+  width: 15rem;
   margin: 0 auto;
   z-index: 3; }
+  @media (min-width: 860px) {
+    .container-smaller {
+      width: 20rem; } }
 
 .row {
   margin-top: 1rem; }
 
 .feedback-row {
-  height: 4rem;
-  font-size: 1.3rem;
+  height: 2rem;
   font-style: italic;
   color: #f0c03d; }
+  @media (min-width: 860px) {
+    .feedback-row {
+      height: 4rem;
+      font-size: 1.3rem; } }
 
 .saber, .player-1-saber, .player-2-saber {
   width: 80%;
