@@ -103,12 +103,10 @@ input#highscore {
   .hero--show {
     opacity: 0.4;
     z-index: 3; }
-    @media (min-width: 860px) {
-      .hero--show {
-        z-index: 1; } }
 
 .player-1-hero {
-  left: 2rem;
+  width: 16rem;
+  left: 1rem;
   -webkit-border-bottom-left-radius: 50%;
   -moz-border-radius-bottomleft: 50%;
   border-bottom-left-radius: 50%;
@@ -120,7 +118,7 @@ input#highscore {
       left: 40%; } }
 
 .player-2-hero {
-  right: 2rem; }
+  right: 0.5rem; }
   @media (min-width: 860px) {
     .player-2-hero {
       right: 5%; } }
@@ -131,30 +129,34 @@ input:focus {
 
 body {
   position: relative;
-  overflow-x: hidden;
-  background-color: black; }
+  background-color: #00c72b; }
 
 body:after {
   content: "";
-  -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
-  background-color: #00c72b;
+  -webkit-clip-path: polygon(0 45%, 100% 38%, 100% 150%, 0% 100%);
+  clip-path: polygon(0 45%, 100% 38%, 100% 150%, 0% 100%);
+  background-color: black;
   width: 100%;
-  height: 45%;
-  top: 0;
+  height: 100%;
+  bottom: 0;
   position: absolute;
   z-index: -1; }
   @media (min-width: 860px) {
     body:after {
-      -webkit-clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
-      clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
-      height: 100%; } }
+      -webkit-clip-path: polygon(46% 0, 100% 0, 100% 100%, 30% 100%);
+      clip-path: polygon(46% 0, 100% 0, 100% 100%, 30% 100%); } }
 
 header {
-  padding-top: 1rem;
-  padding-bottom: 3rem;
+  padding: 1rem 0 3rem 0;
   text-align: center;
-  font-family: "Racing Sans One", cursive; }
+  font-family: "Racing Sans One", cursive;
+  position: fixed;
+  z-index: -1;
+  width: 95%; }
+  @media (min-width: 860px) {
+    header {
+      position: relative;
+      z-index: 0; } }
 
 h1 {
   font-family: "Luckiest Guy", cursive;
@@ -183,8 +185,7 @@ h4 {
 table {
   width: 15rem;
   height: 15rem;
-  display: grid;
-  border-spacing: 0; }
+  display: grid; }
   @media (min-width: 860px) {
     table {
       width: 20rem;
@@ -208,8 +209,9 @@ table {
     flex: 1; }
 
 .grid {
-  min-width: 300px;
-  padding: 1rem 1rem 3rem 1rem; }
+  min-width: 270px;
+  padding: 1rem 1rem 3rem 1rem;
+  position: relative; }
   @media (min-width: 860px) {
     .grid {
       display: grid;
@@ -218,11 +220,13 @@ table {
       padding: 3rem; } }
 
 .container-smaller {
+  padding-top: 25rem;
   width: 15rem;
   margin: 0 auto;
-  z-index: 3; }
+  z-index: 10; }
   @media (min-width: 860px) {
     .container-smaller {
+      padding-top: 0;
       width: 20rem; } }
 
 .row {

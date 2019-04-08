@@ -53,17 +53,14 @@ input#highscore {
   &--show {
     opacity: 0.4;
     z-index: 3;
-
-    @include md {
-      z-index: 1;
-    }
   }
 }
 
 .player-1-hero {
   @extend .hero;
 
-  left: 2rem;
+  width: 16rem;
+  left: 1rem;
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
 
@@ -74,7 +71,7 @@ input#highscore {
 
 .player-2-hero {
   @extend .hero;
-  right: 2rem;
+  right: 0.5rem;
 
   @include md {
     right: 5%;
