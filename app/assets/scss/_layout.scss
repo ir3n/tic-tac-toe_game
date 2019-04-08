@@ -1,0 +1,95 @@
+body {
+  position: relative;
+  background-color: $main-bg;
+}
+body:after {
+  content: "";
+  clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+  background-color: $clip-path-bg;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+header {
+  padding-top: 1rem;
+  text-align: center;
+  font-family: $main-header-font;
+}
+h1 {
+  font-family: "Luckiest Guy", cursive;
+  color: $player-2-light;
+  text-shadow: 4px -3px 1px rgba(138, 1, 0, 0.9);
+}
+table {
+  width: 20rem;
+  height: 20rem;
+  display: grid;
+  border-spacing: 0;
+
+  tbody {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+  tr {
+    grid-column: 1 / span 3;
+    display: flex;
+  }
+  td {
+    flex: 1;
+  }
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 3rem;
+  height: 100vh;
+}
+.container-smaller {
+  width: 20rem;
+  margin: 0 auto;
+  z-index: 3;
+}
+.row {
+  margin-top: 1rem;
+}
+
+.feedback-row {
+  height: 4rem;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: $cell-bg;
+}
+
+.saber {
+  width: 80%;
+  height: auto;
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  @include transition;
+}
+.player-1-saber {
+  @extend .saber;
+}
+.player-2-saber {
+  @extend .saber;
+}
+.player-1--hover {
+  &:hover {
+    background-color: $player-1-light;
+  }
+}
+.player-2--hover {
+  &:hover {
+    background-color: $player-2-light;
+  }
+}
+.player-1--clicked {
+  background-color: $player-1-dark;
+}
+.player-2--clicked {
+  background-color: $player-2-dark;
+}

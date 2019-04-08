@@ -1,0 +1,62 @@
+button#restart {
+  background-color: $player-2-light;
+  border: none;
+  color: hsl(0, 0%, 100%);
+  @include transition;
+
+  &:hover {
+    background-color: $player-2-dark;
+  }
+}
+
+input#highscore {
+  width: 3rem;
+  padding: 0.2rem;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  color: $player-2-light;
+}
+
+.grid-btn {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  background-color: $cell-bg;
+  position: relative;
+  @include transition;
+
+  &:hover {
+    @include scale;
+  }
+}
+
+.hero {
+  position: absolute;
+  width: 18rem;
+  height: auto;
+  top: 2.8rem;
+  opacity: 0;
+  transition: all 1.5s;
+
+  &--show {
+    opacity: 0.4;
+  }
+}
+
+.player-1-hero {
+  @extend .hero;
+  left: 40%;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.player-2-hero {
+  @extend .hero;
+  right: 5%;
+}
+
+button:focus,
+input:focus {
+  outline: none;
+}

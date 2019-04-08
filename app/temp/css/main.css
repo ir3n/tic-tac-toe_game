@@ -1,93 +1,21 @@
+/*------Variables--------*/
+/*-------Mixins--------*/
 body {
   position: relative;
   background-color: black; }
 
-header {
-  padding-top: 1rem;
-  text-align: center;
-  font-family: "Racing Sans One", cursive; }
-
-body:after {
-  content: "";
-  -webkit-clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
-  clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
-  background-color: #00c72b;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  z-index: -1; }
-
-button#restart {
-  background-color: red;
-  border: none;
-  color: white;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s; }
-  button#restart:hover {
-    background-color: #6b0000; }
-
-h1 {
-  font-family: "Luckiest Guy", cursive;
-  color: red;
-  text-shadow: 4px -3px 1px rgba(138, 1, 0, 0.9); }
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  padding: 3rem;
-  height: 100vh; }
-
-button:focus,
-input:focus {
-  outline: none; }
-
-input#highscore {
-  width: 3rem;
-  padding: 0.2rem;
-  text-align: center;
-  background-color: transparent;
-  border: none;
-  color: red; }
-
-.container-smaller {
-  width: 20rem;
-  margin: 0 auto;
-  z-index: 3; }
-
-.row {
-  margin-top: 1rem; }
-
-table {
-  width: 20rem;
-  height: 20rem;
-  display: grid;
-  border-spacing: 0; }
-  table tbody {
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(3, 1fr); }
-  table tr {
-    grid-column: 1 / span 3;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex; }
-  table td {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -moz-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1; }
-
+/*-------Utility Classes------*/
 .half-width {
   width: 50%; }
 
 .full-width {
   width: 100%; }
+
+.show {
+  opacity: 1; }
+
+.hide {
+  opacity: 0; }
 
 .flex-center-column {
   display: -webkit-box;
@@ -108,6 +36,35 @@ table {
   -ms-flex-align: center;
   align-items: center; }
 
+.player-1,
+#player-1-score {
+  color: #00c72b;
+  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9); }
+
+.player-2,
+#player-2-score {
+  color: red;
+  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9); }
+
+button#restart {
+  background-color: red;
+  border: none;
+  color: white;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s; }
+  button#restart:hover {
+    background-color: #6b0000; }
+
+input#highscore {
+  width: 3rem;
+  padding: 0.2rem;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  color: red; }
+
 .grid-btn {
   width: 100%;
   height: 100%;
@@ -126,51 +83,6 @@ table {
     -ms-transform: scale(1.02);
     -o-transform: scale(1.02);
     transform: scale(1.02); }
-
-.player-1,
-#player-1-score {
-  color: #00c72b;
-  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9); }
-
-.player-2,
-#player-2-score {
-  color: red;
-  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9); }
-
-.saber, .player-1-saber, .player-2-saber {
-  width: 80%;
-  height: auto;
-  position: absolute;
-  top: 1rem;
-  left: 0.5rem;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s; }
-
-.player-1--hover:hover {
-  background-color: #00c72b; }
-
-.player-2--hover:hover {
-  background-color: red; }
-
-.player-1--clicked {
-  background-color: #00380c; }
-
-.player-2--clicked {
-  background-color: #6b0000; }
-
-.show {
-  opacity: 1; }
-
-.hide {
-  opacity: 0; }
-
-.feedback-row {
-  height: 4rem;
-  font-size: 1.3rem;
-  font-style: italic;
-  color: #f0c03d; }
 
 .hero, .player-1-hero, .player-2-hero {
   position: absolute;
@@ -196,3 +108,98 @@ table {
 
 .player-2-hero {
   right: 5%; }
+
+button:focus,
+input:focus {
+  outline: none; }
+
+body {
+  position: relative;
+  background-color: black; }
+
+body:after {
+  content: "";
+  -webkit-clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+  clip-path: polygon(0 0, 46% 0, 30% 100%, 0 100%);
+  background-color: #00c72b;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: -1; }
+
+header {
+  padding-top: 1rem;
+  text-align: center;
+  font-family: "Racing Sans One", cursive; }
+
+h1 {
+  font-family: "Luckiest Guy", cursive;
+  color: red;
+  text-shadow: 4px -3px 1px rgba(138, 1, 0, 0.9); }
+
+table {
+  width: 20rem;
+  height: 20rem;
+  display: grid;
+  border-spacing: 0; }
+  table tbody {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); }
+  table tr {
+    grid-column: 1 / span 3;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex; }
+  table td {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 3rem;
+  height: 100vh; }
+
+.container-smaller {
+  width: 20rem;
+  margin: 0 auto;
+  z-index: 3; }
+
+.row {
+  margin-top: 1rem; }
+
+.feedback-row {
+  height: 4rem;
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #f0c03d; }
+
+.saber, .player-1-saber, .player-2-saber {
+  width: 80%;
+  height: auto;
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s; }
+
+.player-1--hover:hover {
+  background-color: #00c72b; }
+
+.player-2--hover:hover {
+  background-color: red; }
+
+.player-1--clicked {
+  background-color: #00380c; }
+
+.player-2--clicked {
+  background-color: #6b0000; }
