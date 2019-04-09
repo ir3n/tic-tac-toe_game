@@ -21,7 +21,35 @@ input#highscore {
   background-color: transparent;
   border: none;
   color: $player-2-light;
-  z-index: 10;
+}
+
+button:focus,
+input:focus {
+  outline: none;
+}
+
+table {
+  width: 15rem;
+  height: 15rem;
+  display: grid;
+
+  @include md {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  tbody {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+  tr {
+    grid-column: 1 / span 3;
+    display: flex;
+  }
+  td {
+    flex: 1;
+  }
 }
 
 .grid-btn {
@@ -35,6 +63,15 @@ input#highscore {
   &:hover {
     @include scale;
   }
+}
+
+.saber {
+  width: 80%;
+  height: auto;
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  @include transition;
 }
 
 .hero {
@@ -56,7 +93,6 @@ input#highscore {
     z-index: 3;
   }
 }
-
 .player-1-hero {
   @extend .hero;
 
@@ -69,7 +105,6 @@ input#highscore {
     left: 40%;
   }
 }
-
 .player-2-hero {
   @extend .hero;
   right: 0.5rem;
@@ -79,7 +114,34 @@ input#highscore {
   }
 }
 
-button:focus,
-input:focus {
-  outline: none;
+.player-1,
+#player-1-score {
+  color: $player-1-light;
+  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9);
+}
+
+.player-2,
+#player-2-score {
+  color: $player-2-light;
+  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9);
+}
+
+.player-1--hover {
+  &:hover {
+    background-color: $player-1-light;
+  }
+}
+
+.player-2--hover {
+  &:hover {
+    background-color: $player-2-light;
+  }
+}
+
+.player-1--clicked {
+  background-color: $player-1-dark;
+}
+
+.player-2--clicked {
+  background-color: $player-2-dark;
 }

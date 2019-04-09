@@ -1,18 +1,15 @@
 import $ from "jquery";
-import { deflateRaw } from "zlib";
 
-let highScore = 2,
+let highScore = 3,
   players = [],
   curPlayer;
 
-//how many players
 createPlayersArray(2);
-
 init();
 
-//EVENT LISTENERS
+// SET EVENT LISTENERS
 
-//set listener for when player clicks on grid
+//when player clicks on grid
 $("td").each(function() {
   $(this).on("click", e => handleBtnClick(e));
 });
@@ -21,18 +18,29 @@ $("td").each(function() {
 $("input#highscore").on("change", function(e) {
   highScore = e.target.valueAsNumber;
   curPlayer = players[0].player;
+  eliminateScores();
   startOver();
 });
 
 //restart button
 $("#restart").click(function() {
   curPlayer = players[0].player;
-
   $(`.player-${curPlayer}-hero`).removeClass("hero--show");
   startOver();
   eliminateScores();
   handleFeedbackText();
 });
+
+function createPlayersArray(numOfPlayers) {
+  for (let i = 0; i < numOfPlayers; i++) {
+    players.push({
+      player: i + 1,
+      score: 0,
+      winner: false
+    });
+  }
+  return players;
+}
 
 function init() {
   //set the highscore
@@ -48,12 +56,17 @@ function init() {
   //hover effect of grid
   gridHover();
 }
-function eliminateScores() {
-  for (let i = 0; i < players.length; i++) {
-    players[i].score = 0;
-    $(`#player-${players[i].player}-score`).html("0");
-    players[i].winner = false;
-  }
+
+function gridHover() {
+  $(".grid-btn").each(function() {
+    $(this).hover(function() {
+      if ($(this).hasClass(`player-${curPlayer}--hover`)) {
+        $(this).removeClass(`player-${curPlayer}--hover`);
+      } else {
+        $(this).addClass(`player-${curPlayer}--hover`);
+      }
+    });
+  });
 }
 
 function handleBtnClick(e) {
@@ -78,25 +91,20 @@ function handleBtnClick(e) {
     curPlayer = players[0].player;
     startOver();
   }
-
-  console.log(players);
-}
-function checkForDraw() {
-  return (
-    $(".grid-btn").length == $(".grid-btn:disabled").length &&
-    checkRoundWinner() == false
-  );
 }
 
-function createPlayersArray(numOfPlayers) {
-  for (let i = 0; i < numOfPlayers; i++) {
-    players.push({
-      player: i + 1,
-      score: 0,
-      winner: false
-    });
-  }
-  return players;
+function handleClickedBtnLayout(btn) {
+  //add class to the cell in order to recognize it when we check for the winner
+  $(btn)
+    .parent("td")
+    .addClass(`${curPlayer}`);
+  $(btn).prop("disabled", true);
+  $(btn).addClass(`player-${curPlayer}--clicked`);
+  $(btn).prepend(`<img class="saber"
+  src="./assets/images/${curPlayer}-lightsaber.png"
+  alt="Player ${curPlayer} Lightsaber"
+    />`);
+  $(btn).removeClass(`player-${curPlayer}--hover`);
 }
 
 function checkRoundWinner() {
@@ -104,6 +112,7 @@ function checkRoundWinner() {
     checkRowIfWon() || checkColIfWon() || checkDiag1IfWon() || checkDiag2IfWon()
   );
 }
+
 //1. check if current player has 3 cells in a row
 function checkRowIfWon() {
   let curPlayerWon = false;
@@ -159,6 +168,13 @@ function checkDiag2IfWon() {
   return curPlayerWon;
 }
 
+function checkForDraw() {
+  return (
+    $(".grid-btn").length == $(".grid-btn:disabled").length &&
+    checkRoundWinner() == false
+  );
+}
+
 function updateScore(player) {
   players[player - 1].score++;
   $(`#player-${player}-score`).html(`${players[player - 1].score}`);
@@ -170,22 +186,16 @@ function updateScore(player) {
   }
 }
 
-function handleClickedBtnLayout(btn) {
-  //add class to the cell in order to recognize it when we check for the winner
-  $(btn)
-    .parent("td")
-    .addClass(`${curPlayer}`);
-  $(btn).prop("disabled", true);
-  $(btn).addClass(`player-${curPlayer}--clicked`);
-  $(btn).prepend(`<img class="player-${curPlayer}-saber"
-  src="./assets/images/${curPlayer}-lightsaber.png"
-  alt="Player ${curPlayer} Lightsaber"
-    />`);
-  $(btn).removeClass(`player-${curPlayer}--hover`);
+function eliminateScores() {
+  for (let i = 0; i < players.length; i++) {
+    players[i].score = 0;
+    $(`#player-${players[i].player}-score`).html("0");
+    players[i].winner = false;
+  }
 }
+
 function startOver() {
   handleFeedbackText();
-  console.log(players);
   for (let i = 0; i < players.length; i++) {
     $(`.player-${players[i].player}-hero`).removeClass("hero--show");
     $(".grid-btn").each(function() {
@@ -210,24 +220,24 @@ function togglePlayer() {
   curPlayer =
     curPlayer === players[0].player ? players[1].player : players[0].player;
 }
+
 function finalWinner() {
-  //1. all grid buttons have the winner's --clicked class
   $(".grid-btn").each(function() {
+    //all grid buttons have the winner's --clicked class
     handleClickedBtnLayout($(this));
     // remove event listeners
     $(this)
       .parent("td")
       .off("click");
   });
-  //2. show the winner's hero
+  //show the winner's hero
   $(`.player-${curPlayer}-hero`).addClass("hero--show");
-  //3. write who wins
+  //write who wins
   handleFeedbackText();
 }
 
 function handleFeedbackText() {
   let html = `<i class="ion-md-arrow-dropright"></i>&nbsp;Click on a cell to begin...`;
-
   //remove the initial text when someone clicks
   $(".grid-btn").each(function() {
     if (this.className.indexOf("clicked") > -1) {
@@ -254,20 +264,7 @@ function handleFeedbackText() {
   return $("#feedback-text").html(html);
 }
 
-function gridHover() {
-  $(".grid-btn").each(function() {
-    $(this).hover(function() {
-      if ($(this).hasClass(`player-${curPlayer}--hover`)) {
-        $(this).removeClass(`player-${curPlayer}--hover`);
-      } else {
-        $(this).addClass(`player-${curPlayer}--hover`);
-      }
-    });
-  });
-}
-
-//solve the input z-index problem
-
+//In order to achieve the fixed header and clip-path effect in small sizes, but also have access to the highscore input
 $(window).on("scroll", function() {
   let st = $(this).scrollTop();
   if (st >= 25) {

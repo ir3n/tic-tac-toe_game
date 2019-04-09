@@ -33,16 +33,6 @@
   -ms-flex-align: center;
   align-items: center; }
 
-.player-1,
-#player-1-score {
-  color: #00c72b;
-  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9); }
-
-.player-2,
-#player-2-score {
-  color: red;
-  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9); }
-
 button#restart {
   background-color: red;
   border: none;
@@ -64,8 +54,37 @@ input#highscore {
   text-align: center;
   background-color: transparent;
   border: none;
-  color: red;
-  z-index: 10; }
+  color: red; }
+
+button:focus,
+input:focus {
+  outline: none; }
+
+table {
+  width: 15rem;
+  height: 15rem;
+  display: grid; }
+  @media (min-width: 860px) {
+    table {
+      width: 20rem;
+      height: 20rem; } }
+  table tbody {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr); }
+  table tr {
+    grid-column: 1 / span 3;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex; }
+  table td {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1; }
 
 .grid-btn {
   width: 100%;
@@ -85,6 +104,17 @@ input#highscore {
     -ms-transform: scale(1.02);
     -o-transform: scale(1.02);
     transform: scale(1.02); }
+
+.saber {
+  width: 80%;
+  height: auto;
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s; }
 
 .hero, .player-1-hero, .player-2-hero {
   position: absolute;
@@ -124,9 +154,27 @@ input#highscore {
     .player-2-hero {
       right: 5%; } }
 
-button:focus,
-input:focus {
-  outline: none; }
+.player-1,
+#player-1-score {
+  color: #00c72b;
+  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9); }
+
+.player-2,
+#player-2-score {
+  color: red;
+  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9); }
+
+.player-1--hover:hover {
+  background-color: #00c72b; }
+
+.player-2--hover:hover {
+  background-color: red; }
+
+.player-1--clicked {
+  background-color: #00380c; }
+
+.player-2--clicked {
+  background-color: #6b0000; }
 
 body {
   position: relative;
@@ -195,32 +243,6 @@ h4 {
     h4 {
       font-size: 1.5rem; } }
 
-table {
-  width: 15rem;
-  height: 15rem;
-  display: grid; }
-  @media (min-width: 860px) {
-    table {
-      width: 20rem;
-      height: 20rem; } }
-  table tbody {
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(3, 1fr); }
-  table tr {
-    grid-column: 1 / span 3;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex; }
-  table td {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -moz-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1; }
-
 .grid {
   min-width: 270px;
   position: relative; }
@@ -260,26 +282,3 @@ table {
     .feedback-row {
       height: 4rem;
       font-size: 1.3rem; } }
-
-.saber, .player-1-saber, .player-2-saber {
-  width: 80%;
-  height: auto;
-  position: absolute;
-  top: 1rem;
-  left: 0.5rem;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s; }
-
-.player-1--hover:hover {
-  background-color: #00c72b; }
-
-.player-2--hover:hover {
-  background-color: red; }
-
-.player-1--clicked {
-  background-color: #00380c; }
-
-.player-2--clicked {
-  background-color: #6b0000; }

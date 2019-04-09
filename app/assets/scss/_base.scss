@@ -56,13 +56,3 @@ $main-header-font: "Racing Sans One", cursive;
   flex-direction: column;
   align-items: center;
 }
-.player-1,
-#player-1-score {
-  color: $player-1-light;
-  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9);
-}
-.player-2,
-#player-2-score {
-  color: $player-2-light;
-  text-shadow: 4px 1px 1px rgba(17, 11, 11, 0.9);
-}

@@ -3,6 +3,7 @@ body {
   overflow-x: hidden;
   background-color: $main-bg;
 }
+
 body:after {
   content: "";
   clip-path: polygon(0 45%, 100% 38%, 100% 150%, 0% 100%);
@@ -20,13 +21,14 @@ body:after {
     transform: translateY(0);
   }
 }
+
 header {
   min-width: 270px;
   padding: 1rem 0.5rem 3rem 0.5rem;
   text-align: center;
   font-family: $main-header-font;
   position: fixed;
-  //z-index: -1;
+  //on scroll z-index: -1;
   width: 100%;
 
   @include md {
@@ -34,11 +36,13 @@ header {
     z-index: 0;
   }
 }
+
 h1 {
   font-family: "Luckiest Guy", cursive;
   color: $player-2-light;
   text-shadow: 4px -3px 1px rgba(138, 1, 0, 0.9);
 }
+
 .h1-bigger {
   font-size: 3.1rem;
 
@@ -46,12 +50,14 @@ h1 {
     font-size: 4.5rem;
   }
 }
+
 h3 {
   font-size: 1.5rem;
   @include md {
     font-size: 1.8rem;
   }
 }
+
 h4 {
   font-size: 1.3rem;
   text-align: center;
@@ -60,29 +66,7 @@ h4 {
     font-size: 1.5rem;
   }
 }
-table {
-  width: 15rem;
-  height: 15rem;
-  display: grid;
 
-  @include md {
-    width: 20rem;
-    height: 20rem;
-  }
-
-  tbody {
-    display: grid;
-    grid-template-rows: repeat(3, 1fr);
-    grid-template-columns: repeat(3, 1fr);
-  }
-  tr {
-    grid-column: 1 / span 3;
-    display: flex;
-  }
-  td {
-    flex: 1;
-  }
-}
 .grid {
   min-width: 270px;
   position: relative;
@@ -94,6 +78,7 @@ table {
     padding: 3rem;
   }
 }
+
 .container-smaller {
   width: 15rem;
   transform: translateY(76%);
@@ -105,6 +90,7 @@ table {
     transform: translateY(0);
   }
 }
+
 .row {
   margin-top: 1rem;
 }
@@ -118,35 +104,4 @@ table {
     height: 4rem;
     font-size: 1.3rem;
   }
-}
-
-.saber {
-  width: 80%;
-  height: auto;
-  position: absolute;
-  top: 1rem;
-  left: 0.5rem;
-  @include transition;
-}
-.player-1-saber {
-  @extend .saber;
-}
-.player-2-saber {
-  @extend .saber;
-}
-.player-1--hover {
-  &:hover {
-    background-color: $player-1-light;
-  }
-}
-.player-2--hover {
-  &:hover {
-    background-color: $player-2-light;
-  }
-}
-.player-1--clicked {
-  background-color: $player-1-dark;
-}
-.player-2--clicked {
-  background-color: $player-2-dark;
 }
