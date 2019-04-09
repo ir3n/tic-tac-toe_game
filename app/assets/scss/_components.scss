@@ -21,6 +21,7 @@ input#highscore {
   background-color: transparent;
   border: none;
   color: $player-2-light;
+  z-index: 10;
 }
 
 .grid-btn {
@@ -40,7 +41,7 @@ input#highscore {
   position: absolute;
   width: 18rem;
   height: auto;
-  top: 47%;
+  top: 80%;
   opacity: 0;
   transition: all 1.5s;
   z-index: -1;

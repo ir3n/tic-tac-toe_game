@@ -1,29 +1,33 @@
 body {
   position: relative;
-  //overflow-x: hidden;
+  overflow-x: hidden;
   background-color: $main-bg;
 }
 body:after {
   content: "";
   clip-path: polygon(0 45%, 100% 38%, 100% 150%, 0% 100%);
   background-color: $clip-path-bg;
+  transform: translateY(43%);
   width: 100%;
-  height: 100%;
+  height: 180%;
   bottom: 0;
   position: absolute;
   z-index: -1;
 
   @include md {
     clip-path: polygon(46% 0, 100% 0, 100% 100%, 30% 100%);
+    height: 100%;
+    transform: translateY(0);
   }
 }
 header {
-  padding: 1rem 0 3rem 0;
+  min-width: 270px;
+  padding: 1rem 0.5rem 3rem 0.5rem;
   text-align: center;
   font-family: $main-header-font;
   position: fixed;
-  z-index: -1;
-  width: 95%;
+  //z-index: -1;
+  width: 100%;
 
   @include md {
     position: relative;
@@ -81,7 +85,6 @@ table {
 }
 .grid {
   min-width: 270px;
-  padding: 1rem 1rem 3rem 1rem;
   position: relative;
 
   @include md {
@@ -92,14 +95,14 @@ table {
   }
 }
 .container-smaller {
-  padding-top: 25rem;
   width: 15rem;
+  transform: translateY(76%);
+  padding-bottom: 3rem;
   margin: 0 auto;
-  z-index: 10;
 
   @include md {
-    padding-top: 0;
     width: 20rem;
+    transform: translateY(0);
   }
 }
 .row {

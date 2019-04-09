@@ -265,3 +265,14 @@ function gridHover() {
     });
   });
 }
+
+//solve the input z-index problem
+
+$(window).on("scroll", function() {
+  let st = $(this).scrollTop();
+  if (st >= 25) {
+    $("header").css("z-index", "-1");
+  } else if (st <= 25) {
+    $("header").css("z-index", "0");
+  }
+});
