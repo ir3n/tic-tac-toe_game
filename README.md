@@ -11,7 +11,7 @@ But why not make it more fun? 😄
 - Players can choose the highscore
 - Feedback text according to what happens
 - Restart button
-- Icons that appear and hide on click and when we have final winner
+- Images that appear and hide on click and when we have final winner
 
 ## Screenshots -- spoilers
 
